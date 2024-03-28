@@ -14,16 +14,25 @@ func main() {
   log.SetPrefix("greetings: ")
   log.SetFlags(0)
 
-  // Request a greeting message.
-  message, err := greetings.Hello("Daniel")
+  // A slice of names
+  names := []string {
+  	"Monica",
+  	"Ramona",
+  	"Chusma",
+  	"Cooper",
+  	"David",
+  }
 
-	// If an error was returned, print it to the console and
-	// exit the program.
-	if err != nil {
-		log.Fatal(err)
-	}
+  // Request greeting messages for the names.
+  messages, err := greetings.Hellos(names)
 
-  // If no error was returned, print the returned message
-  // to the console.
-  fmt.Println(message)  
+  // Checking for errors
+  if err != nil {
+		log.Fatal(err)  	
+  }
+
+  // Iterating through the map, and printing its values.
+  for _, message := range messages {
+  	fmt.Println(message)
+  }
 }
