@@ -12,7 +12,7 @@ import (
 var db *sql.DB
 
 type Album struct {
-	ID int64
+	ID uint64
 	Title string
 	Artist string
 	Price float32
@@ -59,6 +59,22 @@ func main() {
 	}
 
 	fmt.Printf("Album found: %v\n", album)
+
+	albumToAdd := Album{
+		Title: "In Keeping Secrets Of Silent Earth: 3",
+		Artist: "Coheed and Cambria",
+		Price: 10.99,
+	}
+
+	id, err := addAlbum(albumToAdd)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	albumToAdd.ID = id
+
+	fmt.Printf("Album %+v added", albumToAdd)
 }
 
 // albumsByArtist queries for albums that have the specified artist name.
@@ -106,4 +122,21 @@ func albumById(id uint64) (Album, error) {
 	}
 
 	return album, nil
+}
+
+func addAlbum(album Album) (uint64, error) {
+	result, err :=  db.Exec("INSERT into album (title, artist, price) VALUES (?, ? ,?)", album.Title, album.Artist, album.Price)
+
+	if err != nil {
+		return 0, fmt.Errorf("addAlbum(%v): %v", album, err)
+	}
+
+	id, err := result.LastInsertId()
+
+	if err != nil {
+		return 0, fmt.Errorf("addAlbum(%v): %v", album, err)
+	}
+
+	return uint64(id), nil
+
 }
