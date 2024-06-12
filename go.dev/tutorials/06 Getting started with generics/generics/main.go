@@ -2,21 +2,11 @@ package main
 
 import "fmt"
 
-func sumIntegers(numbers map[string]int64) int64 {
-	var sum int64 = 0
+func sumIntegersOrFloats[K comparable, V int64 | float64](m map[K]V) V {
+	var sum V = 0
 
-	for _, i := range numbers {
-		sum += i
-	}
-
-	return sum
-}
-
-func sumFloats(floats map[string]float64) float64 {
-	var sum float64 = 0
-
-	for _, i := range floats {
-		sum += i
+	for _, v := range m {
+		sum += v
 	}
 
 	return sum
@@ -33,5 +23,9 @@ func main() {
 		"second": 60.1,
 	}
 
-	fmt.Printf("sumInts = %v\nsumFloats = %v\n", sumIntegers(integers), sumFloats(floats))
+	fmt.Printf(
+		"Generic sum results:\nintegers = %v\nfloats = %v",
+		sumIntegersOrFloats(integers),
+		sumIntegersOrFloats(floats),
+	)
 }
