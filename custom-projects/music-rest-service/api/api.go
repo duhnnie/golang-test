@@ -16,6 +16,7 @@ func New(artistController controller.IArtistController) *API {
 	router.GET("/artists/:id", artistController.GetById)
 	router.GET("/artists/:id/albums", artistController.GetAlbums)
 	router.GET("/artists/:id/tracks", artistController.GetTracks)
+	router.POST("/artists", artistController.Post)
 
 	// albums
 	//router.GET("/albums", albumController.GetAll)

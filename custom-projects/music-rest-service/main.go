@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	artist := domain.NewArtist("asdfasdf", "Foo Fighters")
+	artist := domain.NewArtistWithId("asdfasdf", "Foo Fighters")
 	track1 := domain.NewTrack("Doll", artist, 345)
 	track2 := domain.NewTrack("Monkey Wrench", artist, 345)
 	track3 := domain.NewTrack("Hey, Jonny Park!", artist, 345)
@@ -45,7 +45,10 @@ func main() {
 	fmt.Println(secondTrack)
 
 	artistRepository := repository.ArtistRepository{}
-	artistUseCase := usecase.NewArtistUseCase(&artistRepository)
+	albumRepository := repository.NewAlbumRepository()
+	trackRepository := repository.NewTrackRepository()
+	// TODO: make parameters consistent in next line
+	artistUseCase := usecase.NewArtistUseCase(&artistRepository, albumRepository, trackRepository)
 	artistController := controller.NewArtistController(artistUseCase)
 	apiServer := api.New(artistController)
 	apiServer.Run("8080")

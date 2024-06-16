@@ -9,4 +9,5 @@ type IArtistController interface {
 	GetById(ctx *gin.Context)
 	GetAlbums(ctx *gin.Context)
 	GetTracks(ctx *gin.Context)
+	Post(ctx *gin.Context)
 }
