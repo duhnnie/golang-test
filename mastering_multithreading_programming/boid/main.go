@@ -10,11 +10,14 @@ import (
 const (
 	screenWidth, screenHeight = 640, 360
 	boidCount = 500
+	viewRadius = 13
+	adjustmentRatio = 0.015
 )
 
 var (
 	green = color.RGBA{ 10, 255, 50, 255 }
 	boids [boidCount]*Boid
+	boidsMap [screenWidth + 1][screenHeight + 1]int
 )
 
 
@@ -40,6 +43,12 @@ func (g Game) Layout(outsideWidth, outsideHeight int) (w, h int) {
 }
 
 func main() {
+	for i := 0; i < len(boidsMap); i++ {
+		for j := 0; j < len(boidsMap[i]); j++ {
+			boidsMap[i][j] = -1
+		}
+	}
+
 	for i := 0; i < boidCount; i++ {
 		createBoid(i)
 	}
