@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 	"log"
+	"sync"
 
 	"github.com/hajimehoshi/ebiten"
 )
@@ -11,13 +12,14 @@ const (
 	screenWidth, screenHeight = 640, 360
 	boidCount = 500
 	viewRadius = 13
-	adjustmentRatio = 0.015
+	adjusmentRate = 0.015
 )
 
 var (
 	green = color.RGBA{ 10, 255, 50, 255 }
 	boids [boidCount]*Boid
 	boidsMap [screenWidth + 1][screenHeight + 1]int
+	rwLock = sync.RWMutex{}
 )
 
 
