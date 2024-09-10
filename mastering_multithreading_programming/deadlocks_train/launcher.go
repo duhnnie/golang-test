@@ -1,8 +1,8 @@
 package main
 
 import (
+	"example/deadlocks_train/arbitrator"
 	"example/deadlocks_train/common"
-	"example/deadlocks_train/hierarchy"
 	"log"
 	"sync"
 
@@ -63,10 +63,10 @@ func main() {
 		}
 	}
 
-	go hierarchy.MoveTrain(trains[0], 300, []*common.Crossing{ crossings[0], crossings[1] })
-	go hierarchy.MoveTrain(trains[1], 300, []*common.Crossing{ crossings[2], crossings[3] })
-	go hierarchy.MoveTrain(trains[2], 300, []*common.Crossing{ crossings[4], crossings[5] })
-	go hierarchy.MoveTrain(trains[3], 300, []*common.Crossing{ crossings[6], crossings[7] })
+	go arbitrator.MoveTrain(trains[0], 300, []*common.Crossing{ crossings[0], crossings[1] })
+	go arbitrator.MoveTrain(trains[1], 300, []*common.Crossing{ crossings[2], crossings[3] })
+	go arbitrator.MoveTrain(trains[2], 300, []*common.Crossing{ crossings[4], crossings[5] })
+	go arbitrator.MoveTrain(trains[3], 300, []*common.Crossing{ crossings[6], crossings[7] })
 
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)
