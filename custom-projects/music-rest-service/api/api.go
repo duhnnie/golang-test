@@ -1,14 +1,17 @@
 package api
 
-import "music-rest-service/controller"
-import "github.com/gin-gonic/gin"
+import (
+	"music-rest-service/controller"
+
+	"github.com/gin-gonic/gin"
+)
 
 type API struct {
 	router *gin.Engine
 }
 
 // func New(artistController controller.IArtistController, albumController controller.IAlbumController, trackController controller.ITrackController) *API {
-func New(artistController controller.IArtistController) *API {
+func New(artistController controller.IArtistController, albumController controller.IAlbumController) *API {
 	router := gin.Default()
 
 	// artists
@@ -19,9 +22,10 @@ func New(artistController controller.IArtistController) *API {
 	router.POST("/artists", artistController.Post)
 
 	// albums
-	//router.GET("/albums", albumController.GetAll)
-	//router.GET("/albums/:id", albumController.GetById)
-	//router.GET("/albums/:id/tracks", albumController.GetTracks)
+	router.GET("/albums", albumController.GetAll)
+	router.POST("/albums", albumController.Create)
+	router.GET("/albums/:id", albumController.GetById)
+	router.GET("/albums/:id/tracks", albumController.GetTracks)
 	//
 	//// tracks
 	//router.GET("/tracks", trackController.GetAll)

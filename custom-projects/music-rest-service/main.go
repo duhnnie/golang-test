@@ -50,6 +50,9 @@ func main() {
 	// TODO: make parameters consistent in next line
 	artistUseCase := usecase.NewArtistUseCase(&artistRepository, albumRepository, trackRepository)
 	artistController := controller.NewArtistController(artistUseCase)
-	apiServer := api.New(artistController)
+
+	albumUseCase := usecase.NewAlbumUseCase(albumRepository, &artistRepository, trackRepository)
+	albumController := controller.NewAlbumController(albumUseCase)
+	apiServer := api.New(artistController, albumController)
 	apiServer.Run("8080")
 }

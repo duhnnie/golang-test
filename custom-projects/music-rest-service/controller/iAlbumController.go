@@ -8,4 +8,5 @@ type IAlbumController interface {
 	GetAll(ctx *gin.Context)
 	GetById(ctx *gin.Context)
 	GetTracks(ctx *gin.Context)
+	Create(ctx *gin.Context)
 }
