@@ -1,0 +1,51 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      let list;
+      let subscribeButton;
+      let clearButton;
+      let eventSource
+
+      function addToList(message) {
+        const li = document.createElement('li');
+        li.textContent = message;
+        list.appendChild(li)
+      }
+
+      function subscribe() {
+        if (subscribeButton.textContent == "Subscribe") {
+          eventSource = new EventSource('/stream');
+          subscribeButton.textContent = "Unsubscribe"
+          eventSource.addEventListener('message', ({ data }) => addToList(data));
+        } else {
+          eventSource.close()
+          subscribeButton.textContent = "Subscribe"
+        }
+      }
+
+      function clearList() {
+        while (list.childNodes.length) {
+          list.removeChild(list.childNodes[0]);
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        list = document.getElementById('list');
+        subscribeButton = document.getElementById('subscribe-button');
+        clearButton = document.getElementById('clear-button');
+
+        subscribeButton.addEventListener('click', subscribe);
+        clearButton.addEventListener('click', clearList);
+      })
+    </script>
+    <title>Testing Server Sent Events</title>
+  </head>
+
+  <body>
+    <button id="subscribe-button">Subscribe</button>
+    <button id="clear-button">Clear</button>
+    <ul id="list">
+    </ul>
+  </body>
+</html>
