@@ -10,8 +10,15 @@ type Animal interface {
 	GetNoise() string
 }
 
+type LionStructure struct {
+	Legs       int
+	HairLength float64
+	Alpha      bool
+}
+
 type Lion struct {
-	Name string
+	Name      string
+	Structure LionStructure
 }
 
 func (l Lion) GetNoise() string {

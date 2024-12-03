@@ -98,7 +98,12 @@ func main() {
 			},
 			{
 				"type": "lion",
-				"name": "Kimba"
+				"name": "Kimba",
+				"structure": {
+					"legs": 4,
+					"alpha": true,
+					"hairLength": 3.24
+				}
 			}
 		]
 	}
@@ -120,6 +125,7 @@ func main() {
 			t.Howl()
 		case *animal.Lion:
 			atype = "Lion"
+			fmt.Printf("Lion structure: %+v", t.Structure)
 		case *animal.Elephant:
 			atype = "Elephant"
 		default:
