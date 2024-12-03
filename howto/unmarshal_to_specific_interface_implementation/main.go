@@ -93,7 +93,8 @@ func main() {
 		"animals": [
 			{
 				"type": "wolf",
-				"name": "wolfie"
+				"name": "wolfie",
+				"age": 3
 			},
 			{
 				"type": "lion",
